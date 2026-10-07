@@ -1,0 +1,28 @@
+Phần 1: Phân tích nguyên nhân lỗi
+
+Bước 1: Kiểm tra vị trí hiện tại
+Lệnh: pwd
+Kết quả: Đang đứng ở thư mục Desktop (C:\Users<User>\Desktop).
+
+Bước 2: Kiểm tra sự tồn tại của file
+Lệnh: ls
+Kết quả: Không thấy file deploy.ps1 trong danh sách.
+
+Bước 3: Xác định vị trí thực tế & Cơ chế bảo mật
+
+File thực tế nằm ở Downloads\Project. Do đứng sai vị trí nên PowerShell không tìm thấy file.
+
+Khi chỉ gõ deploy.ps1, PowerShell sẽ tìm trong biến PATH chứ không tự quét thư mục hiện tại.
+
+Bắt buộc phải có .\ (ví dụ: .\deploy.ps1) để xác nhận chạy script ở thư mục hiện hành. Đây là cơ chế bảo mật chống chạy nhầm file độc hại trùng tên với lệnh hệ thống.
+
+Phần 2: Chuỗi lệnh sửa lỗi tuần tự
+
+Di chuyển sang thư mục chứa file:
+cd ..\Downloads\Project
+
+Kiểm tra xác nhận file tồn tại:
+Test-Path .\deploy.ps1
+
+Chạy file script:
+.\deploy.ps1
